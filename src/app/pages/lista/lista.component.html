@@ -1,0 +1,66 @@
+<div class="grid">
+    <div class="col-12">
+        teste
+    </div>
+    <ng-template [ngIfElse]="nenhumTIme" [ngIf]="times.length > 0">
+        <div *ngFor="let time of times; let index = index" class="col-12">
+            <p-card>
+                <p-table [tableStyle]="{ 'max-width': '100%' }" [value]="time.jogadores" responsiveLayout="stack">
+                    <ng-template pTemplate="caption">
+                        <div class="flex align-items-center justify-content-between">
+                            Nome
+                            <p-button (click)="timePerdedor(time.jogadores)" *ngIf="index < 2" icon="pi pi-thumbs-down"
+                                      styleClass="p-button-danger" type="button"></p-button>
+                        </div>
+                    </ng-template>
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>Nome</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template let-jogador pTemplate="body">
+                        <tr>
+                            <td style="padding: 5px 10px">
+                                <div class="col p-0 m-0">
+                                    {{ jogador.nome }}
+                                </div>
+                                <div class="col p-0 m-0" style="max-width: 43px">
+                                    <button
+                                        (click)="removerJogador(jogador.id)"
+                                        class="p-fullwidth p-button-danger p-button-sm p-button-outlined"
+                                        icon="pi pi-times"
+                                        pButton
+                                        pRipple
+                                        type="button"
+                                    ></button>
+                                </div>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </p-card>
+        </div>
+    </ng-template>
+    <ng-template #nenhumTIme>
+        <div class="col-12">
+            <p-card>
+                Lista de jogadores está vazia.
+            </p-card>
+        </div>
+    </ng-template>
+    <div class="col-12">
+        <p-button [routerLink]="['/adicionar']" icon="pi pi-thumbs-down" label="Adicionar" styleClass="p-button-secondary w-full"
+                  type="button"></p-button>
+    </div>
+    <div class="col-12">
+        <p-button (click)="limpar()" icon="pi pi-thumbs-down" label="Limpar lista" styleClass="p-button-danger w-full"
+                  type="button"></p-button>
+    </div>
+    <div class="col-12"></div>
+</div>
+
+<pre>
+    <code>
+        {{times|json}}
+    </code>
+</pre>

@@ -1,0 +1,27 @@
+<form (ngSubmit)="submit()" [formGroup]="form">
+    <div class="grid">
+
+        <div class="col-12 text-center">
+            IMAGEM
+        </div>
+        <div class="col-12">
+            <div class="formgrid grid">
+                <div class="field col-12">
+                    <label for="nome">Nome do Jogador</label>
+                    <input #inputNome id="nome" class="w-full" formControlName="nome" pInputText type="text"/>
+<!--                    <input id="lastname2" type="text" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">-->
+                </div>
+            </div>
+
+
+
+
+        </div>
+        <div class="col-12">
+            <button class="p-fullwidth p-button-success" icon="pi pi-check" label="Submit" type="submit" pButton pRipple></button>
+        </div>
+        <div class="col-12">
+            <button [routerLink]="['/listar']" class="p-fullwidth p-button-secondary" icon="pi pi-list" label="Lista" type="button" pButton pRipple></button>
+        </div>
+    </div>
+</form>
