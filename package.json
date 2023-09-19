@@ -8,7 +8,8 @@
         "build": "ng build",
         "test": "ng test",
         "lint": "ng lint",
-        "e2e": "ng e2e"
+        "e2e": "ng e2e",
+        "deploy": "ng build --prod --base-href ./ && npx ngh --dir=dist --branch=portifolio --cname=portifolio.chfb.com.br"
     },
     "private": true,
     "dependencies": {
@@ -42,6 +43,7 @@
         "@angular/cli": "~16.1.5",
         "@angular/compiler-cli": "^16.1.0",
         "@types/jasmine": "~4.3.0",
+        "angular-cli-ghpages": "^1.0.7",
         "jasmine-core": "~4.6.0",
         "karma": "~6.4.0",
         "karma-chrome-launcher": "~3.2.0",

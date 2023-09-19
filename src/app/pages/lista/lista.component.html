@@ -1,6 +1,6 @@
 <div class="grid">
-    <div class="col-12">
-        teste
+    <div class="col-12 text-center">
+        <img src="assets/demo/images/unnamed.png" alt="logo" style="width: 120px;">
     </div>
     <ng-template [ngIfElse]="nenhumTIme" [ngIf]="times.length > 0">
         <div *ngFor="let time of times; let index = index" class="col-12">
@@ -49,18 +49,12 @@
         </div>
     </ng-template>
     <div class="col-12">
-        <p-button [routerLink]="['/adicionar']" icon="pi pi-thumbs-down" label="Adicionar" styleClass="p-button-secondary w-full"
+        <p-button [routerLink]="['/adicionar']" icon="pi pi-plus" label="Adicionar" styleClass="p-button-secondary w-full"
                   type="button"></p-button>
     </div>
     <div class="col-12">
-        <p-button (click)="limpar()" icon="pi pi-thumbs-down" label="Limpar lista" styleClass="p-button-danger w-full"
+        <p-button (click)="limpar()" icon="pi pi-trash" label="Limpar lista" styleClass="p-button-danger w-full"
                   type="button"></p-button>
     </div>
     <div class="col-12"></div>
 </div>
-
-<pre>
-    <code>
-        {{times|json}}
-    </code>
-</pre>
