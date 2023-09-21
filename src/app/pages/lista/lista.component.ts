@@ -20,7 +20,7 @@ export class ListaComponent implements OnInit {
     ) {
     }
     ngOnInit(): void {
-        this.fazerTimes();
+        this.fazerTimes();    
     }
 
     congelarTime(){

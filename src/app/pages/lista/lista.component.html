@@ -11,7 +11,7 @@
                 <p-table [tableStyle]="{ 'max-width': '100%' }" [value]="time.jogadores" responsiveLayout="stack">
                     <ng-template pTemplate="caption">
                         <div class="flex align-items-center justify-content-between">
-                            Nome: {{index}}
+                            Nome: {{index + 1}}
                             <p-button (click)="timePerdedor(time.jogadores)" *ngIf="index === 0 && congelarTimeTela === false" icon="pi pi-thumbs-down"
                                       styleClass="p-button-danger" type="button"></p-button>
                             <p-button (click)="timePerdedor(time.jogadores)" *ngIf="index === 1" icon="pi pi-thumbs-down"
