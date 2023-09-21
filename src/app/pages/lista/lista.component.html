@@ -8,8 +8,10 @@
                 <p-table [tableStyle]="{ 'max-width': '100%' }" [value]="time.jogadores" responsiveLayout="stack">
                     <ng-template pTemplate="caption">
                         <div class="flex align-items-center justify-content-between">
-                            Nome
+                            Nome: {{index}}
                             <p-button (click)="timePerdedor(time.jogadores)" *ngIf="index < 2" icon="pi pi-thumbs-down"
+                                      styleClass="p-button-danger" type="button"></p-button>
+                            <p-button (click)="timePerdedor(time.jogadores)" *ngIf="index === 2 && times.length > 3 && times[3].jogadores.length === 4" icon="pi pi-thumbs-down"
                                       styleClass="p-button-danger" type="button"></p-button>
                         </div>
                     </ng-template>
