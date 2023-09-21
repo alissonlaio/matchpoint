@@ -12,6 +12,7 @@ import {Router} from "@angular/router";
 export class ListaComponent implements OnInit {
 
     times: Time[] = [];
+    congelarTimeTela: boolean = false;
 
     constructor(
         private storage: StorageService,
@@ -20,6 +21,14 @@ export class ListaComponent implements OnInit {
     }
     ngOnInit(): void {
         this.fazerTimes();
+    }
+
+    congelarTime(){
+        if (this.congelarTimeTela === true) {
+            this.congelarTimeTela = false;
+        } else {
+            this.congelarTimeTela = true;
+        }
     }
 
     fazerTimes(): void {
@@ -39,6 +48,7 @@ export class ListaComponent implements OnInit {
         this.storage.removerJogador(id);
         this.times = [];
         this.fazerTimes();
+        this.congelarTime();
     }
 
     timePerdedor(jogadores: Jogador[]) {
