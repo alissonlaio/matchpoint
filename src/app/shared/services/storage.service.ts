@@ -78,6 +78,5 @@ export class StorageService {
 
     limpar(): void {
         localStorage.removeItem('lista');
-        localStorage.removeItem('congelarTimeTela')
     }
 }
