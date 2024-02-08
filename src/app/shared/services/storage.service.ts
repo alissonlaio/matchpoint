@@ -20,7 +20,6 @@ export class StorageService {
             const lista: any[] = JSON.parse(storage);
             return lista.map(i => (new Jogador(i.nome, i.id)));
         }
-        window.location.reload();
         return [];
     }
 
