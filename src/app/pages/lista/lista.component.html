@@ -22,7 +22,7 @@
                         <div class="flex align-items-center justify-content-between">
                             Nome: {{index + 1}}
                             <p-button (click)="timePerdedor(time.jogadores)"
-                                *ngIf="index === 0 && congelarTimeTela === false" icon="pi pi-thumbs-down"
+                                *ngIf="index === 0 && congelarTimeTela === false || index === 0 && congelarTimeTela === undefined" icon="pi pi-thumbs-down"
                                 styleClass="p-button-danger" type="button"></p-button>
                             <p-button (click)="timePerdedor(time.jogadores)" *ngIf="index === 1"
                                 icon="pi pi-thumbs-down" styleClass="p-button-danger" type="button"></p-button>
