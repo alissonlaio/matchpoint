@@ -11,13 +11,15 @@ import {ButtonModule} from "primeng/button";
 import {RippleModule} from "primeng/ripple";
 import {CardModule} from "primeng/card";
 import {TableModule} from "primeng/table";
+import { EditarComponent } from './editar/editar.component';
 
 
 @NgModule({
     declarations: [
         PagesComponent,
         ListaComponent,
-        AdicionarComponent
+        AdicionarComponent,
+        EditarComponent
     ],
     imports: [
         CommonModule,

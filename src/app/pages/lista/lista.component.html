@@ -1,6 +1,15 @@
 <div class="grid">
     <div class="col-12 text-right">
-        <p-button icon="pi pi-stopwatch" styleClass="p-button-info" type="button" (click)="congelarTime()" *ngIf="times.length > 3 && times[3].jogadores.length === 4"></p-button>
+        <p-button icon="pi pi-stopwatch" styleClass="p-button-info" type="button" (click)="congelarTime()"
+            *ngIf="times.length > 3 && times[3].jogadores.length === 4"></p-button>
+            <!-- <div class="row">
+                <div class="col">
+                    <button pButton pRipple label="4" class="p-button-info margemals" (click)="incluirNumeroJogadores(4)"
+                    ></button>
+                    <button pButton pRipple label="6" class="p-button-info margemals" (click)="incluirNumeroJogadores(6)"
+                    ></button>
+                </div>
+            </div> -->
     </div>
     <div class="col-12 text-center">
         <img src="assets/demo/images/unnamed.png" alt="logo" style="width: 120px;">
@@ -12,12 +21,14 @@
                     <ng-template pTemplate="caption">
                         <div class="flex align-items-center justify-content-between">
                             Nome: {{index + 1}}
-                            <p-button (click)="timePerdedor(time.jogadores)" *ngIf="index === 0 && congelarTimeTela === false" icon="pi pi-thumbs-down"
-                                      styleClass="p-button-danger" type="button"></p-button>
-                            <p-button (click)="timePerdedor(time.jogadores)" *ngIf="index === 1" icon="pi pi-thumbs-down"
-                                      styleClass="p-button-danger" type="button"></p-button>
-                            <p-button (click)="timePerdedor(time.jogadores)" *ngIf="index === 2 && times.length > 3 && times[3].jogadores.length === 4 && congelarTimeTela === true" icon="pi pi-thumbs-down"
-                                      styleClass="p-button-danger" type="button"></p-button>
+                            <p-button (click)="timePerdedor(time.jogadores)"
+                                *ngIf="index === 0 && congelarTimeTela === false" icon="pi pi-thumbs-down"
+                                styleClass="p-button-danger" type="button"></p-button>
+                            <p-button (click)="timePerdedor(time.jogadores)" *ngIf="index === 1"
+                                icon="pi pi-thumbs-down" styleClass="p-button-danger" type="button"></p-button>
+                            <p-button (click)="timePerdedor(time.jogadores)"
+                                *ngIf="index === 2 && times.length > 3 && times[3].jogadores.length === 4 && congelarTimeTela === true"
+                                icon="pi pi-thumbs-down" styleClass="p-button-danger" type="button"></p-button>
                         </div>
                     </ng-template>
                     <ng-template pTemplate="header">
@@ -32,14 +43,14 @@
                                     {{ jogador.nome }}
                                 </div>
                                 <div class="col p-0 m-0" style="max-width: 43px">
-                                    <button
-                                        (click)="removerJogador(jogador.id)"
+                                    <button (click)="abrirModal(jogador)"
+                                        class="p-fullwidth  p-button-sm p-button-outlined" icon="pi pi-pencil" pButton
+                                        pRipple type="button" style="color: #cfcf1b"></button>
+                                </div>
+                                <div class="col p-0 m-0" style="max-width: 43px">
+                                    <button (click)="removerJogador(jogador.id)"
                                         class="p-fullwidth p-button-danger p-button-sm p-button-outlined"
-                                        icon="pi pi-times"
-                                        pButton
-                                        pRipple
-                                        type="button"
-                                    ></button>
+                                        icon="pi pi-times" pButton pRipple type="button"></button>
                                 </div>
                             </td>
                         </tr>
@@ -55,13 +66,29 @@
             </p-card>
         </div>
     </ng-template>
+    <div class="row">
+        <div class="modal" *ngIf="showModal === true">
+            <div class="flex flex-column gap-2">
+                <label>Nome</label>
+                <input pInputText id="username" aria-describedby="username-help" [(ngModel)]="value" />
+            </div>
+            <div class="row">
+                <div class="col">
+                    <button pButton pRipple label="Salvar" class="p-button-info margemals"
+                        (click)="editarJogador(value)"></button>
+                    <button pButton type="button" label="Cancelar" class="p-button-danger" (click)="showModal = false"></button>
+                </div>
+            </div>
+        </div>
+        <div class="overlay" *ngIf="showModal === true"></div>
+    </div>
     <div class="col-12">
-        <p-button [routerLink]="['/adicionar']" icon="pi pi-plus" label="Adicionar" styleClass="p-button-secondary w-full"
-                  type="button"></p-button>
+        <p-button [routerLink]="['/adicionar']" icon="pi pi-plus" label="Adicionar"
+            styleClass="p-button-secondary w-full" type="button"></p-button>
     </div>
     <div class="col-12">
         <p-button (click)="limpar()" icon="pi pi-trash" label="Limpar lista" styleClass="p-button-danger w-full"
-                  type="button"></p-button>
+            type="button"></p-button>
     </div>
     <div class="col-12"></div>
 </div>

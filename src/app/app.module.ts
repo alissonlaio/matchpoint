@@ -3,6 +3,7 @@ import {AppComponent} from './app.component';
 import {AppRoutingModule} from './app-routing.module';
 import {BrowserModule} from "@angular/platform-browser";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { InputNumberModule } from 'primeng/inputnumber';
 
 @NgModule({
     declarations: [
@@ -12,7 +13,8 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
         AppRoutingModule,
         BrowserModule,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        InputNumberModule
     ],
     providers: [],
     bootstrap: [AppComponent]

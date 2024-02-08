@@ -1,34 +1,41 @@
-import {Component, OnInit} from '@angular/core';
-import {Time} from "../../shared/models/time";
-import {StorageService} from "../../shared/services/storage.service";
-import {Jogador} from "../../shared/models/jogador";
-import {Router} from "@angular/router";
+import { Component, OnInit } from '@angular/core';
+import { Time } from "../../shared/models/time";
+import { StorageService } from "../../shared/services/storage.service";
+import { Jogador } from "../../shared/models/jogador";
+import { Router } from "@angular/router";
+
 
 @Component({
-  selector: 'app-lista',
-  templateUrl: './lista.component.html',
-  styleUrls: ['./lista.component.scss']
+    selector: 'app-lista',
+    templateUrl: './lista.component.html',
+    styleUrls: ['./lista.component.scss']
 })
 export class ListaComponent implements OnInit {
 
     times: Time[] = [];
-    congelarTimeTela: boolean = false;
+    congelarTimeTela: boolean = null;
+    showModal: boolean = false;
+    jogadorEdit: any = null;
 
     constructor(
         private storage: StorageService,
-        private router: Router
+        private router: Router,
     ) {
     }
     ngOnInit(): void {
-        this.fazerTimes();    
+        this.congelarTimeTela = this.storage.obterLocalStorage();
+        this.fazerTimes();
     }
 
-    congelarTime(){
-        if (this.congelarTimeTela === true) {
-            this.congelarTimeTela = false;
-        } else {
+    congelarTime() {
+        const dado = this.storage.obterLocalStorage();
+        if (dado === false) {
             this.congelarTimeTela = true;
+        } else {
+            this.congelarTimeTela = false;
         }
+        var stringBooleana = JSON.stringify(this.congelarTimeTela);
+        localStorage.setItem('congelarTimeTela', stringBooleana);
     }
 
     fazerTimes(): void {
@@ -36,7 +43,7 @@ export class ListaComponent implements OnInit {
         if (listaJogadores.length > 0) {
             this.times.push(new Time());
             for (const jogador of listaJogadores) {
-                if (!this.times[this.times.length - 1].temVaga()) {
+                if (!this.times[this.times.length - 1].temVaga(4)) {
                     this.times.push(new Time());
                 }
                 this.times[this.times.length - 1].jogadores.push(jogador);
@@ -48,7 +55,11 @@ export class ListaComponent implements OnInit {
         this.storage.removerJogador(id);
         this.times = [];
         this.fazerTimes();
-        this.congelarTime();
+        if (this.times.length > 2 && this.times[3].jogadores.length < 4) {
+            this.congelarTimeTela = false;
+            var stringBooleana = JSON.stringify(this.congelarTimeTela);
+            localStorage.setItem('congelarTimeTela', stringBooleana);
+        }
     }
 
     timePerdedor(jogadores: Jogador[]) {
@@ -63,6 +74,19 @@ export class ListaComponent implements OnInit {
         this.storage.salvar(lista);
         this.times = [];
         this.fazerTimes();
+    }
+
+    editarJogador(jogador: string) {
+        if (jogador !== '' && jogador !== undefined) {
+            this.showModal = false;
+            const jogadorEditar: any = this.jogadorEdit;
+            this.storage.editar(jogadorEditar, jogador);
+        }
+    }
+
+    abrirModal(jogador: any) {
+        this.jogadorEdit = jogador;
+        this.showModal = true;
     }
 
     limpar(): void {
