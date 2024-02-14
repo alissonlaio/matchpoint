@@ -16,6 +16,7 @@ export class ListaComponent implements OnInit {
     congelarTimeTela: boolean = null;
     showModal: boolean = false;
     jogadorEdit: any = null;
+    numeroJogador: number | null = null;
 
     constructor(
         private storage: StorageService,
@@ -24,6 +25,7 @@ export class ListaComponent implements OnInit {
     }
     ngOnInit(): void {
         this.congelarTimeTela = this.storage.obterLocalStorage();
+        this.numeroJogador = this.storage.buscarNumeroJogador();
         this.fazerTimes();
     }
 
@@ -38,12 +40,12 @@ export class ListaComponent implements OnInit {
         localStorage.setItem('congelarTimeTela', stringBooleana);
     }
 
-    fazerTimes(): void {
+    fazerTimes(): void {  
         const listaJogadores: Jogador[] = this.storage.obter();
         if (listaJogadores.length > 0) {
             this.times.push(new Time());
             for (const jogador of listaJogadores) {
-                if (!this.times[this.times.length - 1].temVaga(4)) {
+                if (!this.times[this.times.length - 1].temVaga(this.numeroJogador)) {
                     this.times.push(new Time());
                 }
                 this.times[this.times.length - 1].jogadores.push(jogador);

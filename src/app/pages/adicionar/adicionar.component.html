@@ -1,6 +1,5 @@
 <form (ngSubmit)="submit()" [formGroup]="form">
     <div class="grid">
-
         <div class="col-12 text-center">
             <img src="assets/demo/images/unnamed.png" alt="logo" style="width: 100%;">
         </div>
@@ -18,5 +17,26 @@
         <div class="col-12">
             <button [routerLink]="['/listar']" class="p-fullwidth p-button-secondary" icon="pi pi-list" label="Lista" type="button" pButton pRipple></button>
         </div>
+        <div class="col-12">
+            <button  (click)="showModal = true"
+                class="p-fullwidth  p-button-sm p-button-outlined" label="Editar partida" pButton
+                pRipple type="button" style="color: #cfcf1b"></button>
+        </div>
     </div>
 </form>
+<div class="row">
+    <div class="modal" *ngIf="showModal === true">
+        <div class="flex flex-column gap-2">
+            <label>Nº Jogadores na partida</label>
+            <input pInputText id="username" aria-describedby="username-help" [(ngModel)]="value" />
+        </div>
+        <div class="row">
+            <div class="col">
+                <button pButton pRipple label="Salvar" class="p-button-info margemals"
+                    (click)="incluirNumeroJogadores(value)"></button>
+                <button pButton type="button" label="Cancelar" class="p-button-danger" (click)="showModal = false"></button>
+            </div>
+        </div>
+    </div>
+    <div class="overlay" *ngIf="showModal === true"></div>
+</div>

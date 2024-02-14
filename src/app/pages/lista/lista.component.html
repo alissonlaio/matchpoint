@@ -1,15 +1,7 @@
 <div class="grid">
     <div class="col-12 text-right">
         <p-button icon="pi pi-stopwatch" styleClass="p-button-info" type="button" (click)="congelarTime()"
-            *ngIf="times.length > 3 && times[3].jogadores.length === 4"></p-button>
-            <!-- <div class="row">
-                <div class="col">
-                    <button pButton pRipple label="4" class="p-button-info margemals" (click)="incluirNumeroJogadores(4)"
-                    ></button>
-                    <button pButton pRipple label="6" class="p-button-info margemals" (click)="incluirNumeroJogadores(6)"
-                    ></button>
-                </div>
-            </div> -->
+            *ngIf="times.length > 3 && times[3].jogadores.length === numeroJogador"></p-button>
     </div>
     <div class="col-12 text-center">
         <img src="assets/demo/images/unnamed.png" alt="logo" style="width: 120px;">
@@ -27,7 +19,7 @@
                             <p-button (click)="timePerdedor(time.jogadores)" *ngIf="index === 1"
                                 icon="pi pi-thumbs-down" styleClass="p-button-danger" type="button"></p-button>
                             <p-button (click)="timePerdedor(time.jogadores)"
-                                *ngIf="index === 2 && times.length > 3 && times[3].jogadores.length === 4 && congelarTimeTela === true"
+                                *ngIf="index === 2 && times.length > 3 && times[3].jogadores.length === numeroJogador && congelarTimeTela === true"
                                 icon="pi pi-thumbs-down" styleClass="p-button-danger" type="button"></p-button>
                         </div>
                     </ng-template>

@@ -13,6 +13,8 @@ export class AdicionarComponent implements OnInit {
 
     @ViewChild('inputNome') inputNome: any;
     form: FormGroup;
+    numero: number;
+    showModal = false;
 
     constructor(
         private fb: FormBuilder,
@@ -35,5 +37,11 @@ export class AdicionarComponent implements OnInit {
             this.inputNome.nativeElement.focus();
             this.router.navigate(['/listar']).catch();
         }
+    }
+
+    incluirNumeroJogadores(numero: number){
+        this.storage.incluirNumeroJogadores(numero);
+        this.showModal = false;
+        this.router.navigate(['/listar']).catch();
     }
 }

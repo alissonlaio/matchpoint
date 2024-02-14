@@ -65,14 +65,12 @@ export class StorageService {
     }
 
     incluirNumeroJogadores(numero: any){
-        localStorage.setItem('QuantidadeJogadores', JSON.stringify(numero));
+        localStorage.setItem('QuantidadeJogadores', numero);
     }
 
-    buscarNumeroJogador(){
-        const storage = localStorage.getItem('QuantidadeJogadores');
-        console.log('storage', storage);
-        this.obter();
-        return storage;
+    buscarNumeroJogador(): number | null{
+        const numeroDoLocalStorage = localStorage.getItem('QuantidadeJogadores');
+        return numeroDoLocalStorage? Number(numeroDoLocalStorage): null;
     }
 
     limpar(): void {
