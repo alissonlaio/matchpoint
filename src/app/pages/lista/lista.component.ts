@@ -17,7 +17,7 @@ export class ListaComponent implements OnInit {
     showModal: boolean = false;
     jogadorEdit: any = null;
     numeroJogador: number | null = null;
-
+    mostrarMensagem = false;
     constructor(
         private storage: StorageService,
         private router: Router,
@@ -83,6 +83,8 @@ export class ListaComponent implements OnInit {
             this.showModal = false;
             const jogadorEditar: any = this.jogadorEdit;
             this.storage.editar(jogadorEditar, jogador);
+        }else{
+            this.mostrarMensagem = true;
         }
     }
 

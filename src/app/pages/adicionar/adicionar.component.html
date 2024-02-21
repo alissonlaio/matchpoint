@@ -29,6 +29,7 @@
         <div class="flex flex-column gap-2">
             <label>Nº Jogadores na partida</label>
             <input pInputText id="username" aria-describedby="username-help" [(ngModel)]="value" />
+            <small *ngIf="mostrarMensagem" id="username2-help" class="p-error block">Você deve inserir um número!</small>
         </div>
         <div class="row">
             <div class="col">

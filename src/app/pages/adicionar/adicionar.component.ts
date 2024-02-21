@@ -15,6 +15,7 @@ export class AdicionarComponent implements OnInit {
     form: FormGroup;
     numero: number;
     showModal = false;
+    mostrarMensagem = false
 
     constructor(
         private fb: FormBuilder,
@@ -40,8 +41,12 @@ export class AdicionarComponent implements OnInit {
     }
 
     incluirNumeroJogadores(numero: number){
-        this.storage.incluirNumeroJogadores(numero);
-        this.showModal = false;
-        this.router.navigate(['/listar']).catch();
+        if(numero > 1){
+            this.storage.incluirNumeroJogadores(numero);
+            this.showModal = false;
+            this.router.navigate(['/listar']).catch();
+        }else{
+            this.mostrarMensagem = true;
+        }
     }
 }
