@@ -1,79 +1,82 @@
-import {Injectable} from '@angular/core';
-import {Jogador} from "../models/jogador";
+import { Injectable } from '@angular/core';
+import { Jogador } from '../models/jogador';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class StorageService {
 
-    constructor() {
-    }
+  private readonly keyJogadores = 'lista';
+  private readonly keyNumeroJogador = 'numeroJogador';
+  private readonly keyCongelar = 'congelarTimeTela';
 
-    salvar(lista: any[]): void {
-        const dados: string = JSON.stringify(lista);
-        localStorage.setItem('lista', dados);
-    }
+  // 🔹 BehaviorSubject para notificar mudanças no ranking
+  private jogadoresSubject = new BehaviorSubject<Jogador[]>(this.obter());
+  public jogadores$ = this.jogadoresSubject.asObservable();
 
-    obter(): Jogador[] {
-        const storage = localStorage.getItem('lista');
-        if (storage !== null) {
-            const lista: any[] = JSON.parse(storage);
-            return lista.map(i => (new Jogador(i.nome, i.id)));
-        }
-        return [];
-    }
+  constructor() {}
 
-    obterLocalStorage(){
-        const storage: any = localStorage.getItem('congelarTimeTela')
-        if (storage !== null) {
-            var dado: boolean = JSON.parse(storage);
-            return dado;
-        }
-        return dado;
-    }
+  // 🔹 Retorna lista de jogadores
+  obter(): Jogador[] {
+    const lista = localStorage.getItem(this.keyJogadores);
+    return lista ? JSON.parse(lista) : [];
+  }
 
-    removerJogador(id: string): void {
-        const lista: Jogador[] = this.obter();
-        const jogador = lista.findIndex(i => i.id === id);
-        if (jogador > -1) {
-            lista.splice(jogador, 1);
-            this.salvar(lista);
-        }
-    }
+  // 🔹 Salva lista e notifica componentes inscritos
+  salvarLista(lista: Jogador[]): void {
+    localStorage.setItem(this.keyJogadores, JSON.stringify(lista));
+    this.jogadoresSubject.next(lista); // notifica RankingComponent e outros
+  }
 
-    adicionarJogador(jogador: Jogador): void {
-        const lista: Jogador[] = this.obter();
-        lista.push(jogador);
-        this.salvar(lista);
-    }
+  // 🔹 Adiciona jogador
+  adicionarJogador(jogador: Jogador): void {
+    const lista = this.obter();
+    lista.push(jogador);
+    this.salvarLista(lista); // atualiza BehaviorSubject
+  }
 
-    editar(jogador: any, nome: string){
-       var idProcurado = jogador.id;
-       var novoValor = nome;
-        const storage = localStorage.getItem('lista');
-        if (storage !== null) {
-            const lista: any[] = JSON.parse(storage);
-            const dado = lista.find(objeto => objeto.id === idProcurado);
-            var indiceObjeto = lista.findIndex(objeto => objeto.id === idProcurado);
-            if (indiceObjeto !== -1) {
-                lista[indiceObjeto].nome = novoValor;
-                localStorage.setItem('lista', JSON.stringify(lista));
-            }
-        }
-        this.obter();
-        window.location.reload();
-    }
+  // 🔹 Remove jogador por ID
+  removerJogador(id: string): void {
+    const lista = this.obter().filter(j => j.id !== id);
+    this.salvarLista(lista); // atualiza BehaviorSubject
+  }
 
-    incluirNumeroJogadores(numero: any){
-        localStorage.setItem('QuantidadeJogadores', numero);
+  // 🔹 Edita nome do jogador
+  editar(jogador: Jogador, nome: string): void {
+    const lista = this.obter();
+    const index = lista.findIndex(j => j.id === jogador.id);
+    if (index > -1) {
+      lista[index].nome = nome;
+      this.salvarLista(lista); // atualiza BehaviorSubject
     }
+  }
 
-    buscarNumeroJogador(): number | null{
-        const numeroDoLocalStorage = localStorage.getItem('QuantidadeJogadores');
-        return numeroDoLocalStorage? Number(numeroDoLocalStorage): null;
-    }
+  // 🔹 Número de jogadores por time
+  incluirNumeroJogadores(numero: number): void {
+    localStorage.setItem(this.keyNumeroJogador, JSON.stringify(numero));
+  }
 
-    limpar(): void {
-        localStorage.removeItem('lista');
-    }
+  buscarNumeroJogador(): number {
+    const valor = localStorage.getItem(this.keyNumeroJogador);
+    return valor ? JSON.parse(valor) : 2; // padrão 2
+  }
+
+  // 🔹 Congelamento de times
+  setCongelar(valor: boolean): void {
+    localStorage.setItem(this.keyCongelar, JSON.stringify(valor));
+  }
+
+  obterLocalStorage(): boolean {
+    const valor = localStorage.getItem(this.keyCongelar);
+    return valor ? JSON.parse(valor) : false;
+  }
+
+  // 🔹 Limpar tudo
+  limpar(): void {
+    localStorage.removeItem(this.keyJogadores);
+    localStorage.removeItem(this.keyNumeroJogador);
+    localStorage.removeItem(this.keyCongelar);
+    this.jogadoresSubject.next([]); // notifica que está vazio
+  }
 }

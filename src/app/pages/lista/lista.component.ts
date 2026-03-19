@@ -66,17 +66,30 @@ export class ListaComponent implements OnInit {
 
     timePerdedor(jogadores: Jogador[]) {
         const lista: Jogador[] = this.storage.obter();
-        for (const jogador of jogadores) {
-            const index = lista.findIndex(i => i.id === jogador.id);
-            if (index > -1) {
-                lista.splice(index, 1);
-                lista.push(jogador);
-            }
+        const idsPerdedores = new Set(jogadores.map(j => j.id));
+      
+        // Soma vitória apenas para os jogadores do time vencedor (times[1] se times[0] perdeu, e vice-versa)
+        const timeVencedor = this.times[0].jogadores.some(j => idsPerdedores.has(j.id))
+          ? this.times[1]  // times[0] perdeu → times[1] ganhou
+          : this.times[0]; // times[1] perdeu → times[0] ganhou
+      
+        const idsVencedores = new Set(timeVencedor.jogadores.map(j => j.id));
+      
+        for (const jogador of lista) {
+          if (idsVencedores.has(jogador.id)) {
+            jogador.vitorias += 1;
+          }
         }
-        this.storage.salvar(lista);
+      
+        // Reorganiza: perdedores vão pro final da fila
+        const perdedores = lista.filter(j => idsPerdedores.has(j.id));
+        const restante = lista.filter(j => !idsPerdedores.has(j.id));
+        const novaLista = [...restante, ...perdedores];
+      
+        this.storage.salvarLista(novaLista);
         this.times = [];
         this.fazerTimes();
-    }
+      }
 
     editarJogador(jogador: string) {
         if (jogador !== '' && jogador !== undefined) {

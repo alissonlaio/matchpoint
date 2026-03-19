@@ -3,6 +3,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {PagesComponent} from "./pages.component";
 import {AdicionarComponent} from "./adicionar/adicionar.component";
 import {ListaComponent} from "./lista/lista.component";
+import { RankingComponent } from './ranking/ranking.component';
 
 const routes: Routes = [
     {
@@ -16,7 +17,11 @@ const routes: Routes = [
             {
                 path: 'listar',
                 component: ListaComponent
-            }
+            },
+            {
+            path: 'ranking', 
+            component: RankingComponent
+            },
         ]
     },
 ];

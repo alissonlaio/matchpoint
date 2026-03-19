@@ -1,16 +1,19 @@
-import {Jogador} from "./jogador";
-import {v4 as uuidv4} from 'uuid';
+import { Jogador } from './jogador';
+
 export class Time {
-    id: string;
-    jogadores: Jogador[];
-    quatidade: number
+  id: string;
+  jogadores: Jogador[];
+  vitorias: number;
+  numero: number; // ✅ novo campo
 
-    constructor(jogadores?: Jogador[]) {
-        this.id = uuidv4();
-        this.jogadores = jogadores ?? [];
-    }
+  constructor() {
+    this.id = crypto.randomUUID();
+    this.jogadores = [];
+    this.vitorias = 0;
+    this.numero = 0;
+  }
 
-    temVaga(quatidade): boolean {
-        return this.jogadores.length < quatidade;
-    }
+  temVaga(max: number): boolean {
+    return this.jogadores.length < max;
+  }
 }

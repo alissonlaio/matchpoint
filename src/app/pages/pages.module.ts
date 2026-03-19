@@ -12,6 +12,7 @@ import {RippleModule} from "primeng/ripple";
 import {CardModule} from "primeng/card";
 import {TableModule} from "primeng/table";
 import { EditarComponent } from './editar/editar.component';
+import { RankingComponent } from './ranking/ranking.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { EditarComponent } from './editar/editar.component';
         PagesComponent,
         ListaComponent,
         AdicionarComponent,
-        EditarComponent
+        EditarComponent,
+        RankingComponent
     ],
     imports: [
         CommonModule,
