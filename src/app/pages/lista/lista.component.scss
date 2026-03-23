@@ -1,38 +1,110 @@
 :host {
-    ::ng-deep {
-        .p-datatable-header {
-            padding: 4px 10px;
-        }
+  ::ng-deep {
+    .p-datatable-header {
+      padding: 4px 10px;
     }
-}
-.modal {
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px #333;
-    min-width: 320px;
-    position: fixed;
-    left: 50%;
-    padding: 24px;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 11;
+
+    // Linha da tabela com layout flex no mobile
+    .p-datatable-tbody > tr > td {
+      display: flex !important;
+      align-items: center;
+      justify-content: space-between;
+      padding: 6px 10px !important;
+      flex-wrap: nowrap;
+      gap: 6px;
+    }
+
+    .p-button {
+      &.w-full {
+        width: 100%;
+        justify-content: center;
+      }
+    }
   }
-  
-  .overlay {
-    background: #000;
-    height: 100vh;
-    left: 0;
-    opacity: 0.5;
-    position: fixed;
-    top: 0;
-    width: 100vw;
-    z-index: 10;
+}
+
+// Nome do jogador ocupa o espaço disponível
+.jogador-nome {
+  flex: 1;
+  font-size: 1rem;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+// Botões de ação compactos
+.jogador-acoes {
+  display: flex;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+// Modal
+.modal {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
+  width: 90%;
+  max-width: 380px;
+  position: fixed;
+  left: 50%;
+  padding: 24px 20px;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 11;
+
+  label {
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 6px;
+    display: block;
   }
 
-.margemals{
-    margin-left: 13%; 
-    margin-right: 3%;
+  input {
+    width: 100%;
+    font-size: 1rem;
+  }
+
+  @media (max-width: 360px) {
+    padding: 16px 14px;
+    width: 95%;
+  }
 }
+
+.overlay {
+  background: #000;
+  height: 100vh;
+  left: 0;
+  opacity: 0.5;
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  z-index: 10;
+}
+
+// Botões do modal
+.modal-botoes {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+
+  button {
+    flex: 1;
+  }
+}
+
+.margemals {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+// Botões de ação inferiores
+.col-12 {
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
 #ranking-para-foto {
   zoom: 2.3;
 }

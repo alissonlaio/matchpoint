@@ -1,13 +1,38 @@
-.layout-main-container{
-    background: #020224;
+.layout-main-container {
+  background: #020224;
+  padding: 0;
+  min-height: calc(100vh - 60px);
 }
 
-.layout-topbar{
-    background: #021635;
+.layout-topbar {
+  background: #021635;
+  padding: 0 16px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
 
-    .layout-topbar-logo {
-        span {
-            color: #ffffff
-        }
+  .layout-topbar-logo {
+    text-decoration: none;
+
+    span {
+      color: #ffffff;
+      font-size: 1.2rem;
+      font-weight: 700;
+      letter-spacing: 1px;
     }
+  }
+}
+
+.layout-main {
+  padding: 12px;
+  max-width: 600px;
+  margin: 0 auto;
+
+  @media (max-width: 480px) {
+    padding: 8px;
+  }
 }

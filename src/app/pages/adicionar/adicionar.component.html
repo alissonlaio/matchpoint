@@ -1,65 +1,49 @@
-<form (ngSubmit)="submit()" [formGroup]="form">
-    <div class="grid">
-  
-      <!-- Botão ranking canto superior direito -->
-      <div class="col-12 d-flex justify-content-end" style="position: relative;">
-        <button
-          routerLink="/ranking"
-          pButton
-          pRipple
-          type="button"
-          icon="pi pi-chart-bar"
-          class="p-button-rounded p-button-warning"
-          style="position: absolute; top: 8px; right: 8px;"
-          pTooltip="Ranking"
-          tooltipPosition="left">
-        </button>
-      </div>
-  
-      <div class="col-12 text-center">
-        <img src="assets/demo/images/unnamed.png" alt="logo" style="width: 100%;">
-      </div>
-  
-      <div class="col-12">
-        <div class="formgrid grid">
-          <div class="field col-12">
-            <label for="nome" class="titulo">Nome do Jogador</label>
-            <input #inputNome id="nome" class="w-full" formControlName="nome" pInputText type="text"/>
-          </div>
-        </div>
-      </div>
-  
-      <div class="col-12">
-        <button class="p-fullwidth p-button-success" icon="pi pi-check" label="Adicionar Jogador" type="submit" pButton pRipple></button>
-      </div>
-  
-      <div class="col-12">
-        <button [routerLink]="['/listar']" class="p-fullwidth p-button-secondary" icon="pi pi-list" label="Lista" type="button" pButton pRipple></button>
-      </div>
-  
-      <div class="col-12">
-        <button (click)="showModal = true"
-          class="p-fullwidth p-button-sm p-button-outlined" label="Editar partida" pButton
-          pRipple type="button" style="color: #cfcf1b"></button>
-      </div>
-  
+<div class="adicionar-wrapper">
+  <form (ngSubmit)="submit()" [formGroup]="form">
+
+    <!-- Botão ranking canto superior direito -->
+    <button
+      routerLink="/ranking"
+      pButton
+      pRipple
+      type="button"
+      icon="pi pi-chart-bar"
+      class="p-button-rounded p-button-warning btn-ranking"
+      pTooltip="Ranking"
+      tooltipPosition="left">
+    </button>
+
+    <!-- Logo -->
+    <div class="logo-container">
+      <img src="assets/demo/images/unnamed.png" alt="logo">
     </div>
+
+    <!-- Campo nome -->
+    <div class="field">
+      <label for="nome">Nome do Jogador</label>
+      <input #inputNome id="nome" formControlName="nome" pInputText type="text" placeholder="Digite o nome..."/>
+    </div>
+
+    <!-- Botões -->
+    <div class="acoes">
+      <button class="btn-adicionar" icon="pi pi-check" label="Adicionar Jogador" type="submit" pButton pRipple></button>
+      <button [routerLink]="['/listar']" class="btn-lista" icon="pi pi-list" label="Lista" type="button" pButton pRipple></button>
+      <button (click)="showModal = true" class="btn-editar" label="Editar partida" pButton pRipple type="button"></button>
+    </div>
+
   </form>
-  
-  <div class="row">
-    <div class="modal" *ngIf="showModal === true">
-      <div class="flex flex-column gap-2">
-        <label>Nº Jogadores na partida</label>
-        <input pInputText id="username" aria-describedby="username-help" [(ngModel)]="value" />
-        <small *ngIf="mostrarMensagem" id="username2-help" class="p-error block">Você deve inserir um número!</small>
-      </div>
-      <div class="row">
-        <div class="col">
-          <button pButton pRipple label="Salvar" class="p-button-info margemals"
-            (click)="incluirNumeroJogadores(value)"></button>
-          <button pButton type="button" label="Cancelar" class="p-button-danger" (click)="showModal = false"></button>
-        </div>
-      </div>
-    </div>
-    <div class="overlay" *ngIf="showModal === true"></div>
+</div>
+
+<!-- Modal -->
+<div class="modal" *ngIf="showModal === true">
+  <div class="flex flex-column gap-2">
+    <label>Nº Jogadores na partida</label>
+    <input pInputText id="username" aria-describedby="username-help" [(ngModel)]="value" />
+    <small *ngIf="mostrarMensagem" id="username2-help" class="p-error block">Você deve inserir um número!</small>
   </div>
+  <div class="modal-botoes">
+    <button pButton pRipple label="Salvar" class="p-button-info" (click)="incluirNumeroJogadores(value)"></button>
+    <button pButton type="button" label="Cancelar" class="p-button-danger" (click)="showModal = false"></button>
+  </div>
+</div>
+<div class="overlay" *ngIf="showModal === true"></div>
