@@ -1,192 +1,498 @@
 :host {
+  display: block;
+  background-color: #0d1b3e;
+  min-height: 100vh;
+  padding: 12px;
+}
+
+.container {
+  padding: 8px 0;
+}
+
+.cabecalho {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+#ranking-para-foto {
+  background: linear-gradient(160deg, #0a1628 0%, #0d1b3e 50%, #1a2a5e 100%);
+  padding: 24px 16px 20px;
+  border-radius: 16px;
+  border: 2px solid #f0c020;
+  position: relative;
+  overflow: hidden;
+}
+
+.faixa-topo, .faixa-base {
+  position: absolute;
+  left: 0; right: 0;
+  height: 5px;
+  background: linear-gradient(90deg, transparent, #f0c020, #fff, #f0c020, transparent);
+}
+.faixa-topo { top: 0; }
+.faixa-base { bottom: 0; }
+
+.bola-deco-1 {
+  position: absolute;
+  top: -30px; right: -30px;
+  font-size: 160px;
+  opacity: 0.06;
+  transform: rotate(20deg);
+  pointer-events: none;
+  line-height: 1;
+}
+
+.bola-deco-2 {
+  position: absolute;
+  bottom: 20px; left: -30px;
+  font-size: 120px;
+  opacity: 0.05;
+  transform: rotate(-15deg);
+  pointer-events: none;
+  line-height: 1;
+}
+
+.logo-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 12px;
+  position: relative;
+  z-index: 1;
+
+  img {
+    width: 70%;
+    max-width: 240px;
     display: block;
-    background-color: #0d1b3e;
-    min-height: 100vh;
-    padding: 12px;
+    filter: drop-shadow(0 0 16px rgba(240,192,32,0.5));
   }
-  
-  .container {
-    padding: 8px 0;
-  }
-  
-  .card {
-    border-radius: 8px;
-    overflow: hidden;
-    margin-bottom: 12px;
-  }
-  
-  .card-header {
-    padding: 10px 14px;
-    h5 {
-      font-size: 1.1rem;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-    }
-  }
-  
-  ::ng-deep .p-datatable {
-    * {
-      text-shadow: none !important;
-      box-shadow: none !important;
-      color-scheme: normal !important;
-    }
-  
-    .p-datatable-thead > tr > th {
-      font-size: 0.95rem !important;
-      padding: 8px 12px !important;
-      border: none !important;
-    }
-  
-    .p-datatable-tbody > tr {
-      background: transparent !important;
-      box-shadow: none !important;
-  
-      > td {
-        font-size: 1rem !important;
-        padding: 8px 12px !important;
-        border: none !important;
-        height: auto !important;
-      }
-    }
-  
-    .p-column-title {
-      display: none !important;
-    }
-  }
-  
-  .posicao {
-    font-size: 1rem;
-    font-weight: 700;
+}
+
+.titulo-ranking {
+  text-align: center;
+  margin-bottom: 16px;
+  position: relative;
+  z-index: 1;
+}
+
+.titulo-inner {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border-top: 2px solid #f0c020;
+  border-bottom: 2px solid #f0c020;
+  padding: 6px 16px;
+  background: rgba(240,192,32,0.05);
+  border-radius: 4px;
+
+  h2 {
     color: #f0c020;
-  }
-  
-  .badge-time {
-    background-color: #0d1b3e;
-    border: 1px solid #f0c020;
-    color: #f0c020;
-    font-size: 0.95rem;
-    font-weight: 600;
-    padding: 4px 10px;
-    border-radius: 4px;
-    display: inline-block;
-    white-space: nowrap;
-  }
-  
-  .badge-vitorias {
-    background-color: #2ecc71;
-    color: #ffffff;
-    font-size: 1rem;
-    font-weight: 400;
-    padding: 4px 12px;
-    border-radius: 4px;
-    display: inline-block;
-  }
-  
-  /* Grid de jogadores: 3 colunas, até 6 jogadores */
-  .grid-jogadores {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 6px;
-    width: 100%;
-  }
-  
-  .badge-jogador {
-    background-color: #1e3a6e;
-    color: #ffffff;
-    font-size: 1rem !important;
-    font-weight: 400;
-    padding: 5px 10px;
-    border-radius: 4px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border: 1px solid #2a4a8e;
-  
-    .estrela {
-      color: #f0c020;
-      margin-left: 6px;
-      font-weight: 400;
-    }
-  }
-  
-  .nome-jogador {
-    font-size: 1rem;
-    font-weight: 400;
-    color: #ffffff;
-  }
-  
-  .msg-vazia {
-    color: #f0c020;
-    font-size: 1rem;
-    text-align: center;
-    padding: 16px;
     margin: 0;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
   }
-  
-  .btn-limpar {
-    background-color: #c0392b;
-    border: none;
-    color: #ffffff;
-    border-radius: 8px;
-    padding: 8px 20px;
-    font-size: 1rem;
-    font-weight: 400;
-    cursor: pointer;
-  
-    &:hover {
-      background-color: #a93226;
-    }
-  }
-  .btn-voltar {
-    background-color: transparent;
-    border: 1px solid #f0c020;
-    color: #f0c020;
-    border-radius: 8px;
-    padding: 6px 16px;
-    font-size: 0.95rem;
-    font-weight: 600;
-    cursor: pointer;
-  
-    &:hover {
-      background-color: #2a3f7e;
-    }
-  }
-  
-  .btn-lista {
-    background-color: #1a2a5e;
-    border: 1px solid #f0c020;
-    color: #f0c020;
-    border-radius: 8px;
-    padding: 8px 20px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-  
-    &:hover {
-      background-color: #2a3f7e;
-    }
-  }
-  .rodape-botoes {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 12px;
-    margin-top: 16px;
-    margin-bottom: 8px;
-    width: 100%;
+}
+
+.emoji-titulo { font-size: 1.1rem; }
+
+.card-time {
+  border-radius: 12px;
+  padding: 12px;
+  margin-bottom: 8px;
+  position: relative;
+  z-index: 1;
+}
+
+.card-time-inner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.emoji-lugar {
+  font-size: 2rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.card-time-info { flex: 1; min-width: 0; }
+
+.card-time-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  gap: 6px;
+}
+
+.nome-time {
+  margin: 0;
+  font-weight: 800;
+  font-size: 1.2rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.badge-vitorias-time {
+  border-radius: 8px;
+  padding: 6px 12px;
+  text-align: center;
+  flex-shrink: 0;
+
+  h2, h1 {
+    margin: 0;
+    font-size: 1.6rem;
+    font-weight: 900;
+    line-height: 1;
   }
 
-  .btn-foto {
-    background-color: #f0c020;
-    border: none;
-    color: #0d1b3e;
-    border-radius: 8px;
-    padding: 8px 20px;
+  p, h4 {
+    margin: 0;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+}
+
+.jogadores-lista {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+}
+
+.jogador-pill {
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: 16px;
+  padding: 3px 10px;
+}
+
+.card-time-footer {
+  text-align: center;
+  margin-top: 8px;
+  border-top: 1px solid rgba(240,192,32,0.3);
+  padding-top: 6px;
+
+  h4 {
+    margin: 0;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+  }
+}
+
+.card-primeiro {
+  background: linear-gradient(135deg, #1a2a5e, #0d1b3e);
+  border: 2px solid #f0c020;
+  box-shadow: 0 0 24px rgba(240,192,32,0.2);
+
+  .emoji-lugar { font-size: 2.2rem; }
+  .nome-time { color: #f0c020; font-size: 1.3rem; }
+  .badge-vitorias-time {
+    background: linear-gradient(90deg, #a07800, #f0c020);
+    h2, h1 { color: #0d1b3e; font-size: 1.8rem; }
+    p, h4 { color: #0d1b3e; }
+  }
+  .jogador-pill {
+    color: #f0c020;
+    background: rgba(240,192,32,0.12);
+    border: 1px solid rgba(240,192,32,0.4);
+  }
+  .card-time-footer h4 { color: #f0c020; }
+}
+
+.card-segundo {
+  background: linear-gradient(135deg, #1e2e50, #0d1b3e);
+  border: 2px solid #aab4c8;
+
+  .emoji-lugar { font-size: 1.8rem; }
+  .nome-time { color: #aab4c8; font-size: 1.2rem; }
+  .badge-vitorias-time {
+    background: linear-gradient(90deg, #6a7a90, #aab4c8);
+    h2, h1 { color: #0d1b3e; font-size: 1.6rem; }
+    p, h4 { color: #0d1b3e; }
+  }
+  .jogador-pill {
+    color: #ccc;
+    background: rgba(170,180,200,0.1);
+    border: 1px solid rgba(170,180,200,0.3);
+  }
+}
+
+.card-terceiro {
+  background: linear-gradient(135deg, #1a2030, #0d1b3e);
+  border: 2px solid #cd7f32;
+
+  .emoji-lugar { font-size: 1.6rem; }
+  .nome-time { color: #cd7f32; font-size: 1.1rem; }
+  .badge-vitorias-time {
+    background: linear-gradient(90deg, #7a4010, #cd7f32);
+    h2, h1 { color: #fff; font-size: 1.4rem; }
+    p, h4 { color: #fff; }
+  }
+  .jogador-pill {
+    color: #ddd;
+    background: rgba(205,127,50,0.1);
+    border: 1px solid rgba(205,127,50,0.3);
+  }
+}
+
+.demais-times {
+  position: relative;
+  z-index: 1;
+  margin-bottom: 8px;
+}
+
+.card-demais {
+  display: flex;
+  align-items: center;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(240,192,32,0.15);
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin-bottom: 6px;
+  gap: 10px;
+}
+
+.posicao-demais {
+  color: #f0c020;
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+  min-width: 32px;
+}
+
+.badge-time-demais {
+  color: #f0c020;
+  font-size: 1rem;
+  font-weight: 600;
+  border: 1px solid rgba(240,192,32,0.4);
+  border-radius: 4px;
+  padding: 3px 8px;
+  white-space: nowrap;
+}
+
+.badge-vitorias-demais {
+  background: #2ecc71;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 700;
+  border-radius: 4px;
+  padding: 3px 8px;
+  white-space: nowrap;
+}
+
+.jogadores-demais {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+  flex: 1;
+
+  span {
+    color: #ccc;
+    font-size: 0.95rem;
+    background: rgba(255,255,255,0.07);
+    border-radius: 10px;
+    padding: 2px 6px;
+    white-space: nowrap;
+  }
+}
+
+.frase-motivacional {
+  text-align: center;
+  margin: 12px 0 8px 0;
+  position: relative;
+  z-index: 1;
+
+  p {
+    color: #f0c020;
+    margin: 0;
+    font-size: 0.9rem;
+    font-style: italic;
+    letter-spacing: 1px;
+  }
+}
+
+.rodape-foto {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-top: 1px solid rgba(240,192,32,0.3);
+  padding-top: 10px;
+  position: relative;
+  z-index: 1;
+
+  h3 {
+    color: #f0c020;
+    margin: 0;
     font-size: 1rem;
     font-weight: 700;
-    cursor: pointer;
-  
-    &:hover {
-      background-color: #d4a800;
+    letter-spacing: 3px;
+  }
+}
+
+.emoji-rodape { font-size: 1.2rem; }
+
+.card {
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+.card-header {
+  padding: 10px 14px;
+  h5 { font-size: 1rem; font-weight: 700; margin: 0; }
+}
+
+::ng-deep .p-datatable {
+  * { text-shadow: none !important; box-shadow: none !important; color-scheme: normal !important; }
+
+  .p-datatable-thead > tr > th {
+    font-size: 1.2rem !important;
+    font-weight: 700 !important;
+    padding: 10px 12px !important;
+    border: none !important;
+  }
+
+  .p-datatable-tbody > tr {
+    background: transparent !important;
+    > td {
+      font-size: 1.1rem !important;
+      padding: 10px 12px !important;
+      border: none !important;
+      height: auto !important;
     }
   }
+
+  .p-column-title { display: none !important; }
+}
+
+.posicao { font-size: 1.5rem; font-weight: 700; color: #f0c020; }
+.nome-jogador { font-size: 1.5rem; color: #fff; }
+.badge-vitorias { background-color: #2ecc71; color: #fff; font-size: 1rem; font-weight: 700; padding: 4px 12px; border-radius: 4px; display: inline-block; }
+.msg-vazia { color: #f0c020; font-size: 1rem; text-align: center; padding: 16px; margin: 0; }
+
+.rodape-botoes {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-top: 16px;
+  margin-bottom: 8px;
+  width: 100%;
+}
+
+.btn-voltar {
+  background-color: transparent;
+  border: 1px solid #f0c020;
+  color: #f0c020;
+  border-radius: 8px;
+  padding: 6px 16px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  &:hover { background-color: #2a3f7e; }
+}
+
+.btn-limpar {
+  background-color: #c0392b;
+  border: none;
+  color: #fff;
+  border-radius: 4px;
+  width: 38px;
+  height: 38px;
+  cursor: pointer;
+}
+
+.btn-lista {
+  background-color: #1a2a5e;
+  border: 1px solid #f0c020;
+  color: #f0c020;
+  border-radius: 8px;
+  padding: 8px 20px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  &:hover { background-color: #2a3f7e; }
+}
+
+.btn-foto {
+  background-color: #f0c020;
+  border: none;
+  color: #0d1b3e;
+  border-radius: 8px;
+  padding: 8px 20px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  &:hover { background-color: #d4a800; }
+}
+
+// ── Top 5 Jogadores ──
+.top-jogadores {
+  position: relative;
+  z-index: 1;
+  margin-bottom: 12px;
+  margin-top: 4px;
+}
+
+.top-jogadores-titulo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid rgba(240,192,32,0.3);
+  padding-bottom: 6px;
+
+  h3 {
+    color: #f0c020;
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  span { font-size: 1rem; }
+}
+
+.top-jogador-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 10px;
+  border-radius: 6px;
+  margin-bottom: 4px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(240,192,32,0.1);
+}
+
+.top-jogador-pos {
+  font-size: 1rem;
+  min-width: 30px;
+  text-align: center;
+  color: #f0c020;
+  font-weight: 700;
+}
+
+.top-jogador-nome {
+  flex: 1;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.top-jogador-vitorias {
+  background: #2ecc71;
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 700;
+  border-radius: 4px;
+  padding: 3px 8px;
+  white-space: nowrap;
+}

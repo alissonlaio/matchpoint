@@ -1,86 +1,127 @@
 <div class="container">
 
   <!-- Cabeçalho -->
-  <div style="display: flex; flex-direction: row; align-items: center; justify-content: space-between; margin-bottom: 12px;">
-    <button class="btn-voltar" routerLink="/adicionar">
-      ← Voltar
-    </button>
-    <button
-      class="btn-limpar"
-      pButton
-      pRipple
-      type="button"
-      icon="pi pi-trash"
-      pTooltip="Limpar Ranking"
-      tooltipPosition="left"
-      (click)="limparRanking()"
+  <div class="cabecalho">
+    <button class="btn-voltar" routerLink="/adicionar">← Voltar</button>
+    <button class="btn-limpar" pButton pRipple type="button" icon="pi pi-trash"
+      pTooltip="Limpar Ranking" tooltipPosition="left" (click)="limparRanking()"
       style="width: 38px; height: 38px; padding: 0; display: flex; align-items: center; justify-content: center;">
     </button>
   </div>
 
   <!-- ÁREA QUE SERÁ FOTOGRAFADA -->
-  <div id="ranking-para-foto" style="background-color: #0d1b3e; padding: 16px; border-radius: 8px; width: 100%;">
+  <div id="ranking-para-foto" style="padding: 10px;">
 
-    <!-- Logo centralizada -->
-    <div style="display: flex; justify-content: center; align-items: center; width: 100%; margin-bottom: 16px; background-color: #0d1b3e;">
-      <img [src]="logoBase64" alt="logo" style="width: 70%; max-width: 260px; display: block; margin: 0 auto;">
+    <div class="faixa-topo"></div>
+    <div class="faixa-base"></div>
+    <div class="bola-deco-1">🏐</div>
+    <div class="bola-deco-2">🏐</div>
+
+    <!-- Logo -->
+    <div class="logo-container">
+      <img [src]="logoBase64" alt="logo">
     </div>
 
-    <!-- Ranking de Times -->
-    <div class="card" style="background-color: #1a2a5e; border: 1px solid #f0c020;">
-      <div class="card-header" style="background-color: #0d1b3e; border-bottom: 2px solid #f0c020;">
-        <h5 class="mb-0 text-white">🏆 Ranking de Times</h5>
-      </div>
-      <div class="card-body p-0">
-        <p-table [value]="times" responsiveLayout="scroll">
-          <ng-template pTemplate="header">
-            <tr style="background-color: #0d1b3e;">
-              <th style="color: #f0c020; background-color: #0d1b3e; width: 40px;">#</th>
-              <th style="color: #f0c020; background-color: #0d1b3e; width: 90px;">Time</th>
-              <th style="color: #f0c020; background-color: #0d1b3e; width: 90px; text-align: center;">Vitórias</th>
-              <th style="color: #f0c020; background-color: #0d1b3e;">Jogadores</th>
-            </tr>
-          </ng-template>
-          <ng-template pTemplate="body" let-time let-i="rowIndex">
-            <tr [style.background-color]="i === 0 ? '#2a3f7e' : '#1a2a5e'"
-                style="border-bottom: 1px solid #2a3f7e;">
-              <td><span class="posicao">{{ i + 1 }}º</span></td>
-              <td><span class="badge-time">Time {{ time.numero }}</span></td>
-              <td style="text-align: center;">
-                <span class="badge-vitorias">{{ time.vitorias || 0 }}</span>
-              </td>
-              <td>
-                <div class="grid-jogadores">
-                  <span *ngFor="let j of time.jogadores" class="badge-jogador">
-                    {{ j.nome }}<span class="estrela">★ {{ j.vitorias || 0 }}</span>
-                  </span>
-                </div>
-              </td>
-            </tr>
-          </ng-template>
-          <ng-template pTemplate="emptymessage">
-            <tr>
-              <td colspan="4" style="background-color: #1a2a5e;">
-                <p class="msg-vazia">Nenhum time encontrado.</p>
-              </td>
-            </tr>
-          </ng-template>
-        </p-table>
+    <!-- Título -->
+    <div class="titulo-ranking">
+      <div class="titulo-inner">
+        <span class="emoji-titulo">🏐</span>
+        <h2>Ranking Semanal</h2>
+        <span class="emoji-titulo">🏐</span>
       </div>
     </div>
 
-    <!-- Rodapé da foto -->
-    <div style="display: flex; justify-content: center; margin-top: 12px;">
-      <small style="color: #f0c020; font-size: 0.85rem; letter-spacing: 1px;">MatchPoint V.T. 🏐</small>
+    <!-- 1º LUGAR -->
+    <div *ngIf="times.length >= 1" class="card-time card-primeiro">
+      <div class="card-time-inner">
+        <span class="emoji-lugar">🥇</span>
+        <div class="card-time-info">
+          <div class="card-time-header">
+            <h2 class="nome-time">Time {{ times[0]?.numero }}</h2>
+            <div class="badge-vitorias-time">
+              <h1>{{ times[0]?.vitorias || 0 }}</h1>
+              <h4>VITÓRIAS</h4>
+            </div>
+          </div>
+          <div class="jogadores-lista">
+            <span *ngFor="let j of times[0]?.jogadores" class="jogador-pill">{{ j.nome }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-time-footer">
+        <h4>🏆 CAMPEÃO</h4>
+      </div>
+    </div>
+
+    <!-- 2º LUGAR -->
+    <div *ngIf="times.length >= 2" class="card-time card-segundo">
+      <div class="card-time-inner">
+        <span class="emoji-lugar">🥈</span>
+        <div class="card-time-info">
+          <div class="card-time-header">
+            <h2 class="nome-time">Time {{ times[1]?.numero }}</h2>
+            <div class="badge-vitorias-time">
+              <h1>{{ times[1]?.vitorias || 0 }}</h1>
+              <h4>VITÓRIAS</h4>
+            </div>
+          </div>
+          <div class="jogadores-lista">
+            <span *ngFor="let j of times[1]?.jogadores" class="jogador-pill">{{ j.nome }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3º LUGAR -->
+    <div *ngIf="times.length >= 3" class="card-time card-terceiro">
+      <div class="card-time-inner">
+        <span class="emoji-lugar">🥉</span>
+        <div class="card-time-info">
+          <div class="card-time-header">
+            <h2 class="nome-time">Time {{ times[2]?.numero }}</h2>
+            <div class="badge-vitorias-time">
+              <h1>{{ times[2]?.vitorias || 0 }}</h1>
+              <h4>VITÓRIAS</h4>
+            </div>
+          </div>
+          <div class="jogadores-lista">
+            <span *ngFor="let j of times[2]?.jogadores" class="jogador-pill">{{ j.nome }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Frase -->
+    <div class="frase-motivacional">
+      <p>"Na quadra ou fora dela, sempre em equipe! 🏐"</p>
+    </div>
+
+    <!-- Rodapé -->
+    <div class="rodape-foto">
+      <span class="emoji-rodape">🏐</span>
+      <h3>MATCHPOINT V.T.</h3>
+      <span class="emoji-rodape">🏐</span>
     </div>
 
   </div>
   <!-- FIM ÁREA FOTO -->
 
-  <!-- Ranking de Jogadores (abaixo da foto) -->
+  <!-- Demais times fora da foto -->
+  <div *ngIf="times.length > 3" class="demais-times" style="margin-top: 12px;">
+    <div *ngFor="let time of times.slice(3); let i = index" class="card-demais">
+      <span class="posicao-demais">{{ i + 4 }}º</span>
+      <span class="badge-time-demais">Time {{ time.numero }}</span>
+      <span class="badge-vitorias-demais">{{ time.vitorias || 0 }} ★</span>
+      <div class="jogadores-demais">
+        <span *ngFor="let j of time.jogadores">{{ j.nome }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ranking de Jogadores -->
   <div class="card" style="background-color: #1a2a5e; border: 1px solid #f0c020; margin-top: 12px;">
     <div class="card-header" style="background-color: #0d1b3e; border-bottom: 2px solid #f0c020;">
-      <h5 class="mb-0 text-white">👤 Ranking de Jogadores</h5>
+      <h3 class="mb-0 text-white">👤 Ranking de Jogadores</h3>
     </div>
     <div class="card-body p-0">
       <p-table [value]="jogadores" responsiveLayout="scroll">
@@ -121,12 +162,8 @@
 
   <!-- Botões rodapé -->
   <div class="rodape-botoes">
-    <button class="btn-lista" routerLink="/listar">
-      ⚽ Lista de Times
-    </button>
-    <button class="btn-foto" (click)="gerarFoto()">
-      📸 Compartilhar
-    </button>
+    <button class="btn-lista" routerLink="/listar">⚽ Lista de Times</button>
+    <button class="btn-foto" (click)="gerarFoto()">📸 Compartilhar</button>
   </div>
 
 </div>

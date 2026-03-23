@@ -2,6 +2,11 @@ import { Injectable } from '@angular/core';
 import { Jogador } from '../models/jogador';
 import { BehaviorSubject } from 'rxjs';
 
+export interface TimeVencedorHistorico {
+  ids: string[];
+  data: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -10,59 +15,52 @@ export class StorageService {
   private readonly keyJogadores = 'lista';
   private readonly keyNumeroJogador = 'numeroJogador';
   private readonly keyCongelar = 'congelarTimeTela';
+  private readonly keyHistorico = 'historicoTimes';
 
-  // 🔹 BehaviorSubject para notificar mudanças no ranking
   private jogadoresSubject = new BehaviorSubject<Jogador[]>(this.obter());
   public jogadores$ = this.jogadoresSubject.asObservable();
 
   constructor() {}
 
-  // 🔹 Retorna lista de jogadores
   obter(): Jogador[] {
     const lista = localStorage.getItem(this.keyJogadores);
     return lista ? JSON.parse(lista) : [];
   }
 
-  // 🔹 Salva lista e notifica componentes inscritos
   salvarLista(lista: Jogador[]): void {
     localStorage.setItem(this.keyJogadores, JSON.stringify(lista));
-    this.jogadoresSubject.next(lista); // notifica RankingComponent e outros
+    this.jogadoresSubject.next(lista);
   }
 
-  // 🔹 Adiciona jogador
   adicionarJogador(jogador: Jogador): void {
     const lista = this.obter();
     lista.push(jogador);
-    this.salvarLista(lista); // atualiza BehaviorSubject
+    this.salvarLista(lista);
   }
 
-  // 🔹 Remove jogador por ID
   removerJogador(id: string): void {
     const lista = this.obter().filter(j => j.id !== id);
-    this.salvarLista(lista); // atualiza BehaviorSubject
+    this.salvarLista(lista);
   }
 
-  // 🔹 Edita nome do jogador
   editar(jogador: Jogador, nome: string): void {
     const lista = this.obter();
     const index = lista.findIndex(j => j.id === jogador.id);
     if (index > -1) {
       lista[index].nome = nome;
-      this.salvarLista(lista); // atualiza BehaviorSubject
+      this.salvarLista(lista);
     }
   }
 
-  // 🔹 Número de jogadores por time
   incluirNumeroJogadores(numero: number): void {
     localStorage.setItem(this.keyNumeroJogador, JSON.stringify(numero));
   }
 
   buscarNumeroJogador(): number {
     const valor = localStorage.getItem(this.keyNumeroJogador);
-    return valor ? JSON.parse(valor) : 2; // padrão 2
+    return valor ? JSON.parse(valor) : 2;
   }
 
-  // 🔹 Congelamento de times
   setCongelar(valor: boolean): void {
     localStorage.setItem(this.keyCongelar, JSON.stringify(valor));
   }
@@ -72,11 +70,25 @@ export class StorageService {
     return valor ? JSON.parse(valor) : false;
   }
 
-  // 🔹 Limpar tudo
+  // ✅ Salva um time vencedor no histórico
+  salvarTimeVencedor(ids: string[]): void {
+    const historico = this.obterHistorico();
+    historico.push({ ids, data: new Date().toISOString() });
+    localStorage.setItem(this.keyHistorico, JSON.stringify(historico));
+  }
+
+  // ✅ Retorna todo o histórico de times vencedores
+  obterHistorico(): TimeVencedorHistorico[] {
+    const valor = localStorage.getItem(this.keyHistorico);
+    return valor ? JSON.parse(valor) : [];
+  }
+
+  // ✅ Limpa histórico junto com o resto
   limpar(): void {
     localStorage.removeItem(this.keyJogadores);
     localStorage.removeItem(this.keyNumeroJogador);
     localStorage.removeItem(this.keyCongelar);
-    this.jogadoresSubject.next([]); // notifica que está vazio
+    localStorage.removeItem(this.keyHistorico);
+    this.jogadoresSubject.next([]);
   }
 }
